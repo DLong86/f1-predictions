@@ -3,7 +3,7 @@ import { drivers } from "../data/drivers";
 import PredictionRow from "../components/PredictionRow";
 
 export default function Race() {
-	const [prediction, setPrediction] = useState(Array(22).fill(null));
+	const [prediction, setPrediction] = useState(Array(10).fill(null));
 
 	const updatePrediction = (positionIndex, driverId) => {
 		const next = [...prediction];

@@ -5,12 +5,14 @@ import Leaderboard from "./pages/Leaderboard";
 
 function App() {
 	return (
-		<Routes>
+		<>
 			<h1 className="">F1 Predictions</h1>
-			<Route path="/" element={<Home />} />
-			<Route path="/race/:id" element={<Race />} />
-			<Route path="/leaderboard" element={<Leaderboard />} />
-		</Routes>
+			<Routes>
+				<Route path="/" element={<Home />} />
+				<Route path="/race/:id" element={<Race />} />
+				<Route path="/leaderboard" element={<Leaderboard />} />
+			</Routes>
+		</>
 	);
 }
 
