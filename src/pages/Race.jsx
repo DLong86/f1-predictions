@@ -12,8 +12,8 @@ export default function Race() {
 	};
 
 	return (
-		<div className="">
-			<h1 className="">Race Prediction</h1>
+		<div className="min-h-screen bg-black text-white p-6">
+			<h1 className="text-2xl font-bold mb-4">Race Prediction</h1>
 
 			{prediction.map((driverId, index) => (
 				<PredictionRow
