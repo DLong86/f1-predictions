@@ -1,15 +1,27 @@
-import { useState } from "react";
-import { drivers } from "../data/drivers";
+import { useEffect, useState } from "react";
+import { fetchDrivers } from "../services/api";
 import PredictionRow from "../components/PredictionRow";
 
 export default function Race() {
+	const [drivers, setDrivers] = useState([]);
 	const [prediction, setPrediction] = useState(Array(10).fill(null));
+
+	useEffect(() => {
+		fetchDrivers().then((data) => {
+			console.log(data);
+			setDrivers(data);
+		});
+	}, []);
 
 	const updatePrediction = (positionIndex, driverId) => {
 		const next = [...prediction];
 		next[positionIndex] = driverId;
 		setPrediction(next);
 	};
+
+	if (drivers.length === 0) {
+		return <div className="p-6">Loading drivers...</div>;
+	}
 
 	return (
 		<div className="min-h-screen bg-black text-white p-6">
