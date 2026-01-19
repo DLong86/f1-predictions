@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
-import { fetchDrivers } from "../services/api";
+import { fetchDrivers, fetchPrediction, savePrediction } from "../services/api";
 import PredictionRow from "../components/PredictionRow";
+import { useParams } from "react-router";
 
 export default function Race() {
+	const { id } = useParams();
+	const raceId = Number(id);
+
 	const [drivers, setDrivers] = useState([]);
 	const [prediction, setPrediction] = useState(Array(10).fill(null));
 
@@ -11,7 +15,20 @@ export default function Race() {
 			console.log(data);
 			setDrivers(data);
 		});
-	}, []);
+
+		fetchPrediction(raceId).then((data) => {
+			if (data) {
+				setPrediction(data.positions);
+			}
+		});
+	}, [raceId]);
+
+	const handleSave = () => {
+		savePrediction({
+			raceId,
+			positions: prediction,
+		});
+	};
 
 	const updatePrediction = (positionIndex, driverId) => {
 		const next = [...prediction];
@@ -36,6 +53,13 @@ export default function Race() {
 					onChange={(id) => updatePrediction(index, id)}
 				/>
 			))}
+
+			<button
+				onClick={handleSave}
+				className="mt-6 bg-green-600 px-4 py-2 rounded"
+			>
+				Save Prediction
+			</button>
 		</div>
 	);
 }
