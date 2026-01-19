@@ -27,6 +27,18 @@ app.post("/predictions", (req, res) => {
 	res.status(201).json({ message: "Prediction saved" });
 });
 
+app.get("/predictions/:raceId", (req, res) => {
+	const raceId = Number(req.params.raceId);
+
+	const prediction = predictions.find((p) => p.raceId === raceId);
+
+	if (!prediction) {
+		return res.status(404).json({ error: "Prediction not found" });
+	}
+
+	res.json(prediction);
+});
+
 const PORT = 3001;
 app.listen(PORT, () => {
 	console.log(`Server running on http://localhost:${PORT}`);
