@@ -19,10 +19,18 @@ app.post("/predictions", (req, res) => {
 		return res.status(400).json({ error: "Invalid payload" });
 	}
 
-	predictions.push({
-		raceId,
-		positions,
-	});
+	const existingIndex = predictions.findIndex((p) => p.raceId === raceId);
+
+	if (existingIndex !== -1) {
+		predictions[existingIndex].positions = positions;
+	} else {
+		predictions.push({ raceId, positions });
+	}
+
+	// predictions.push({
+	// 	raceId,
+	// 	positions,
+	// });
 
 	res.status(201).json({ message: "Prediction saved" });
 });

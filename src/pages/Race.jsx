@@ -18,6 +18,8 @@ export default function Race() {
 
 		fetchPrediction(raceId).then((data) => {
 			if (data) {
+				console.log(data);
+
 				setPrediction(data.positions);
 			}
 		});
@@ -35,6 +37,8 @@ export default function Race() {
 		next[positionIndex] = driverId;
 		setPrediction(next);
 	};
+
+	console.log("prediction:", prediction);
 
 	if (drivers.length === 0) {
 		return <div className="p-6">Loading drivers...</div>;
