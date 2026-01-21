@@ -4,6 +4,8 @@ import { drivers } from "./data/drivers.js";
 import { predictions } from "./data/predictions.js";
 import authRoutes from "./routes/auth.js";
 
+const JWT_SECRET = "super_secret_key";
+
 const app = express();
 
 app.use(cors());
