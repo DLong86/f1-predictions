@@ -2,11 +2,13 @@ import express from "express";
 import cors from "cors";
 import { drivers } from "./data/drivers.js";
 import { predictions } from "./data/predictions.js";
+import authRoutes from "./routes/auth.js";
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use("/auth", authRoutes);
 
 app.get("/drivers", (req, res) => {
 	res.json(drivers);
@@ -26,11 +28,6 @@ app.post("/predictions", (req, res) => {
 	} else {
 		predictions.push({ raceId, positions });
 	}
-
-	// predictions.push({
-	// 	raceId,
-	// 	positions,
-	// });
 
 	res.status(201).json({ message: "Prediction saved" });
 });
