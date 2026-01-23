@@ -21,15 +21,23 @@ export default function Race() {
 				console.log(data);
 
 				setPrediction(data.positions);
+			} else {
+				setPrediction(Array(10).fill(null));
 			}
 		});
 	}, [raceId]);
 
-	const handleSave = () => {
-		savePrediction({
-			raceId,
-			positions: prediction,
-		});
+	const handleSave = async () => {
+		try {
+			await savePrediction({
+				raceId,
+				positions: prediction,
+			});
+			alert("Prediction saved!");
+		} catch (err) {
+			console.error(err);
+			alert("Failed to save prediction");
+		}
 	};
 
 	const updatePrediction = (positionIndex, driverId) => {

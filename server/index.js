@@ -3,6 +3,7 @@ import cors from "cors";
 import { drivers } from "./data/drivers.js";
 import { predictions } from "./data/predictions.js";
 import authRoutes from "./routes/auth.js";
+import { authMiddleware } from "./middleware/auth.js";
 
 const JWT_SECRET = "super_secret_key";
 
@@ -16,28 +17,34 @@ app.get("/drivers", (req, res) => {
 	res.json(drivers);
 });
 
-app.post("/predictions", (req, res) => {
+app.post("/predictions", authMiddleware, (req, res) => {
+	const userId = req.user.userId;
 	const { raceId, positions } = req.body;
 
 	if (!raceId || !positions) {
 		return res.status(400).json({ error: "Invalid payload" });
 	}
 
-	const existingIndex = predictions.findIndex((p) => p.raceId === raceId);
+	const existingIndex = predictions.findIndex(
+		(p) => p.userId === userId && p.raceId === raceId
+	);
 
 	if (existingIndex !== -1) {
 		predictions[existingIndex].positions = positions;
 	} else {
-		predictions.push({ raceId, positions });
+		predictions.push({ userId, raceId, positions });
 	}
 
 	res.status(201).json({ message: "Prediction saved" });
 });
 
-app.get("/predictions/:raceId", (req, res) => {
+app.get("/predictions/:raceId", authMiddleware, (req, res) => {
+	const userId = req.user.userId;
 	const raceId = Number(req.params.raceId);
 
-	const prediction = predictions.find((p) => p.raceId === raceId);
+	const prediction = predictions.find(
+		(p) => p.userId === userId && p.raceId === raceId
+	);
 
 	if (!prediction) {
 		return res.status(404).json({ error: "Prediction not found" });
