@@ -5,7 +5,7 @@ export default function Home() {
 		<div className="">
 			<h1 className="">F1 Predictor</h1>
 
-			<Link to="/race/1" className="">
+			<Link to="/login" className="">
 				Make Prediction - ENTER CIRCUIT -{" "}
 			</Link>
 		</div>
