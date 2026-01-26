@@ -30,13 +30,16 @@ export async function login(email, password) {
 	return data;
 }
 
-export async function savePrediction(data) {
+export async function savePrediction(prediction) {
+	const token = localStorage.getItem("token");
+
 	const res = await fetch(`${API_URL}/predictions`, {
 		method: "POST",
 		headers: {
 			"Content-type": "application/json",
+			Authorization: `Bearer ${token}`,
 		},
-		body: JSON.stringify(data),
+		body: JSON.stringify(prediction),
 	});
 
 	if (!res.ok) {

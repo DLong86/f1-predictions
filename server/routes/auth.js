@@ -4,6 +4,8 @@ import { users } from "../data/users.js";
 
 const router = express.Router();
 
+const JWT_SECRET = "super_secret_key";
+
 router.post("/register", (req, res) => {
 	const { email, password } = req.body;
 
@@ -24,7 +26,14 @@ router.post("/register", (req, res) => {
 
 	users.push(newUser);
 
-	res.status(201).json({ message: "User created" });
+	// auto-login after register
+	const token = jwt.sign(
+		{ userId: newUser.id, email: newUser.email },
+		JWT_SECRET,
+		{ expiresIn: "1h" }
+	);
+
+	res.status(201).json({ token });
 });
 
 router.post("/login", (req, res) => {
