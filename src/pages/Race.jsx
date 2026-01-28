@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import { fetchDrivers, fetchPrediction, savePrediction } from "../services/api";
 import PredictionRow from "../components/PredictionRow";
 import { useParams } from "react-router";
+import { isLoggedIn } from "../services/auth.js";
+import { useNavigate } from "react-router";
 
 export default function Race() {
 	const { id } = useParams();
 	const raceId = Number(id);
+	const navigate = useNavigate();
 
 	const [drivers, setDrivers] = useState([]);
 	const [prediction, setPrediction] = useState(Array(10).fill(null));
@@ -24,6 +27,12 @@ export default function Race() {
 			}
 		});
 	}, [raceId]);
+
+	useEffect(() => {
+		if (!isLoggedIn()) {
+			navigate("/login");
+		}
+	}, []);
 
 	const handleSave = async () => {
 		const token = localStorage.getItem("token");
