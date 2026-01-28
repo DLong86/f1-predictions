@@ -18,8 +18,6 @@ export default function Race() {
 
 		fetchPrediction(raceId).then((data) => {
 			if (data) {
-				console.log(data);
-
 				setPrediction(data.positions);
 			} else {
 				setPrediction(Array(10).fill(null));
@@ -28,16 +26,18 @@ export default function Race() {
 	}, [raceId]);
 
 	const handleSave = async () => {
-		try {
-			await savePrediction({
-				raceId,
-				positions: prediction,
-			});
-			alert("Prediction saved!");
-		} catch (err) {
-			console.error(err);
-			alert("Failed to save prediction");
+		const token = localStorage.getItem("token");
+		console.log("SAVE TOKEN:", token);
+
+		if (!token) {
+			alert("You must be logged in to save predictions");
+			return;
 		}
+
+		await savePrediction({
+			raceId,
+			positions: prediction,
+		});
 	};
 
 	const updatePrediction = (positionIndex, driverId) => {

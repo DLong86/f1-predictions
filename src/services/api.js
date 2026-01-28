@@ -3,13 +3,9 @@ const API_URL = "http://localhost:3001";
 function getAuthHeaders() {
 	const token = localStorage.getItem("token");
 
-	if (!token) {
-		throw new Error("No token found");
-	}
-
 	return {
 		"Content-Type": "application/json",
-		Authorization: `Bearer ${token}`,
+		...(token && { Authorization: `Bearer ${token}` }),
 	};
 }
 
@@ -44,13 +40,18 @@ export async function login(email, password) {
 }
 
 export async function savePrediction(prediction) {
+	const headers = getAuthHeaders();
+	if (!headers) return null;
+
 	const res = await fetch(`${API_URL}/predictions`, {
 		method: "POST",
-		headers: getAuthHeaders(),
+		headers,
 		body: JSON.stringify(prediction),
 	});
 
 	if (!res.ok) {
+		const text = await res.text();
+		console.error("Save prediction failed:", res.status, text);
 		throw new Error("Failed to save prediction");
 	}
 
@@ -58,8 +59,11 @@ export async function savePrediction(prediction) {
 }
 
 export async function fetchPrediction(raceId) {
+	const headers = getAuthHeaders();
+	if (!headers) return null;
+
 	const res = await fetch(`${API_URL}/predictions/${raceId}`, {
-		headers: getAuthHeaders(),
+		headers,
 	});
 
 	if (res.status === 404) {
