@@ -4,11 +4,12 @@ import Race from "./pages/Race";
 import Leaderboard from "./pages/Leaderboard";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Header from "./components/Header";
 
 function App() {
 	return (
 		<>
-			<h1 className="">F1 Predictions</h1>
+			<Header />
 			<Routes>
 				<Route path="/" element={<Home />} />
 				<Route path="/login" element={<Login />} />

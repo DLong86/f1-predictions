@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { login } from "../services/api";
+import { isLoggedIn } from "../services/auth";
 import { useNavigate } from "react-router";
 
 export default function Login() {
@@ -7,6 +8,12 @@ export default function Login() {
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
 	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (isLoggedIn()) {
+			navigate("/");
+		}
+	}, []);
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
