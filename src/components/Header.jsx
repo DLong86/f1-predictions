@@ -1,5 +1,6 @@
 import { logout, isLoggedIn } from "../services/auth";
 import { useNavigate } from "react-router";
+import { Link } from "react-router";
 
 export default function Header() {
 	const navigate = useNavigate();
@@ -10,13 +11,26 @@ export default function Header() {
 	};
 
 	return (
-		<header className="">
-			<h1 className="">Race Predictor</h1>
+		<header className="flex items-center">
+			<Link to="/" className="">
+				<h1 className="text-4xl">Race Predictor</h1>
+			</Link>
 
 			{isLoggedIn() && (
 				<button onClick={handleLogout} className="">
 					Log out
 				</button>
+			)}
+
+			{!isLoggedIn() && (
+				<div className="flex gap-4 pl-4">
+					<Link to="/login" className="">
+						LogIn
+					</Link>
+					<Link to="/register" className="">
+						Signup
+					</Link>
+				</div>
 			)}
 		</header>
 	);
