@@ -11,7 +11,7 @@ export default function Login() {
 
 	useEffect(() => {
 		if (isLoggedIn()) {
-			navigate("/");
+			navigate("/dashboard");
 		}
 	}, []);
 
@@ -22,7 +22,7 @@ export default function Login() {
 		try {
 			await login(email, password);
 			alert("Logged in successfully");
-			navigate("/race/1");
+			navigate("/dashboard");
 		} catch (err) {
 			setError(err.message);
 		}

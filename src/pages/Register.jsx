@@ -14,7 +14,7 @@ export default function Register() {
 
 		try {
 			await register(email, password);
-			navigate("/race/1");
+			navigate("/dashboard");
 		} catch (err) {
 			setError(err);
 		}

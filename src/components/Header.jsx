@@ -16,13 +16,11 @@ export default function Header() {
 				<h1 className="text-4xl">Race Predictor</h1>
 			</Link>
 
-			{isLoggedIn() && (
+			{isLoggedIn() ? (
 				<button onClick={handleLogout} className="">
 					Log out
 				</button>
-			)}
-
-			{!isLoggedIn() && (
+			) : (
 				<div className="flex gap-4 pl-4">
 					<Link to="/login" className="">
 						LogIn
