@@ -4,6 +4,7 @@ import PredictionRow from "../components/PredictionRow";
 import { useParams } from "react-router";
 import { isLoggedIn } from "../services/auth.js";
 import { useNavigate } from "react-router";
+import { races2026 } from "../../server/data/races.js";
 
 export default function Race() {
 	const { id } = useParams();
@@ -12,6 +13,8 @@ export default function Race() {
 
 	const [drivers, setDrivers] = useState([]);
 	const [prediction, setPrediction] = useState(Array(10).fill(null));
+
+	const race = races2026.find((race) => race.id === raceId);
 
 	useEffect(() => {
 		fetchDrivers().then((data) => {
@@ -63,7 +66,12 @@ export default function Race() {
 
 	return (
 		<div className="min-h-screen bg-black text-white p-6">
-			<h1 className="text-2xl font-bold mb-4">Race Prediction</h1>
+			{race && (
+				<div className="mb-4">
+					<h1 className="text-2xl font-bold">{race.name}</h1>
+					<h3 className="text-gray-500 text-xl">{race.circuit}</h3>
+				</div>
+			)}
 
 			{prediction.map((driverId, index) => (
 				<PredictionRow
