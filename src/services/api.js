@@ -76,3 +76,9 @@ export async function fetchPrediction(raceId) {
 
 	return res.json();
 }
+
+export async function fetchRaces() {
+	const res = await fetch(`${API_URL}/races`);
+	if (!res.ok) throw new Error("Failed to fetch race data");
+	return res.json();
+}

@@ -21,7 +21,7 @@ function Dashboard() {
 
 				<div className="flex flex-col gap-3">
 					<button
-						onClick={() => navigate("/")}
+						onClick={() => navigate("/races")}
 						className="bg-black text-white py-2 rounded cursor-pointer"
 					>
 						View Races

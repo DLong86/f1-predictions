@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import { drivers } from "./data/drivers.js";
+import { races2026 } from "./data/races.js";
 import { predictions } from "./data/predictions.js";
 import authRoutes from "./routes/auth.js";
 import { authMiddleware } from "./middleware/auth.js";
@@ -15,6 +16,10 @@ app.use("/auth", authRoutes);
 
 app.get("/drivers", (req, res) => {
 	res.json(drivers);
+});
+
+app.get("/races", (req, res) => {
+	res.json(races2026);
 });
 
 app.post("/predictions", authMiddleware, (req, res) => {
