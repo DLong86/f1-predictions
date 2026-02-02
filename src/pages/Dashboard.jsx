@@ -1,9 +1,11 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { getUserFromToken } from "../services/auth";
 
 function Dashboard() {
 	const navigate = useNavigate();
-	const userEmail = localStorage.getItem("userEmail");
+	// const userEmail = localStorage.getItem("userEmail");
+	const user = getUserFromToken();
 
 	const handleLogout = () => {
 		localStorage.removeItem("token");
@@ -16,7 +18,8 @@ function Dashboard() {
 			<div className="bg-white p-8 rounded-lg shadow-md max-w-md">
 				<h1 className="text-2xl font-bold mb-2">Dashboard</h1>
 				<p className="text-gray-600 mb-6">
-					Welcome{userEmail ? `, ${userEmail}` : ""}
+					Welcome{" "}
+					<span className="semibold text-md text-black">{user.username}</span>
 				</p>
 
 				<div className="flex flex-col gap-3">

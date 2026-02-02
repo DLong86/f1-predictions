@@ -1,12 +1,13 @@
 const API_URL = "http://localhost:3001";
+import { jwtDecode } from "jwt-decode";
 
-export async function register(email, password) {
+export async function register(email, password, username) {
 	const res = await fetch(`${API_URL}/auth/register`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({ email, password }),
+		body: JSON.stringify({ email, password, username }),
 	});
 
 	const data = await res.json();
@@ -23,6 +24,17 @@ export async function register(email, password) {
 
 export function isLoggedIn() {
 	return Boolean(localStorage.getItem("token"));
+}
+
+export function getUserFromToken() {
+	const token = localStorage.getItem("token");
+	if (!token) return null;
+
+	try {
+		return jwtDecode(token);
+	} catch {
+		return null;
+	}
 }
 
 export function logout() {

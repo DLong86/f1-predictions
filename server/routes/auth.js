@@ -7,9 +7,9 @@ const router = express.Router();
 const JWT_SECRET = "super_secret_key";
 
 router.post("/register", (req, res) => {
-	const { email, password } = req.body;
+	const { email, password, username } = req.body;
 
-	if (!email || !password) {
+	if (!email || !password || !username) {
 		return res.status(400).json({ error: "Missing fields" });
 	}
 
@@ -22,13 +22,14 @@ router.post("/register", (req, res) => {
 		id: users.length + 1,
 		email,
 		password,
+		username,
 	};
 
 	users.push(newUser);
 
 	// auto-login after register
 	const token = jwt.sign(
-		{ userId: newUser.id, email: newUser.email },
+		{ userId: newUser.id, email: newUser.email, username: users.username },
 		JWT_SECRET,
 		{ expiresIn: "1h" }
 	);
@@ -48,7 +49,7 @@ router.post("/login", (req, res) => {
 	console.log(users);
 
 	const token = jwt.sign(
-		{ userId: user.id, email: user.email },
+		{ userId: user.id, email: user.email, username: user.username },
 		"super_secret_key",
 		{ expiresIn: "1h" }
 	);

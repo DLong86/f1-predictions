@@ -6,6 +6,7 @@ export default function Register() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [error, setError] = useState("");
+	const [username, setUsername] = useState("");
 	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
@@ -13,10 +14,10 @@ export default function Register() {
 		setError("");
 
 		try {
-			await register(email, password);
+			await register(email, password, username);
 			navigate("/dashboard");
 		} catch (err) {
-			setError(err);
+			setError(err.message);
 		}
 	};
 
@@ -35,6 +36,12 @@ export default function Register() {
 				placeholder="password..."
 				value={password}
 				onChange={(e) => setPassword(e.target.value)}
+			/>
+
+			<input
+				placeholder="Username..."
+				value={username}
+				onChange={(e) => setUsername(e.target.value)}
 			/>
 
 			<button>Register</button>
