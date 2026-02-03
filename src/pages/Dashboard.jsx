@@ -17,10 +17,7 @@ function Dashboard() {
 		<div className="min-h-screen flex items-center justify-center bg-gray-100">
 			<div className="bg-white p-8 rounded-lg shadow-md max-w-md">
 				<h1 className="text-2xl font-bold mb-2">Dashboard</h1>
-				<p className="text-gray-600 mb-6">
-					Welcome{" "}
-					<span className="semibold text-md text-black">{user.username}</span>
-				</p>
+				<p className="text-gray-600 mb-6">{user.username}</p>
 
 				<div className="flex flex-col gap-3">
 					<button
