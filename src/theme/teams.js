@@ -37,10 +37,10 @@ export const teamThemes = {
 	// ---------------   Need to fix colour scheme ------------------
 	racingbulls: {
 		name: "Racing Bulls",
-		primary: "#006F62",
-		glow: "rgba(0, 111, 98, 0.6)",
-		border: "#006F62",
-		accent: "#006F62",
+		primary: "#1E90FF", // electric blue
+		glow: "rgba(30, 144, 255, 0.6)",
+		border: "#1E90FF",
+		accent: "#1E90FF",
 	},
 	// Aston is ok!
 	aston: {
@@ -52,30 +52,33 @@ export const teamThemes = {
 	},
 	haas: {
 		name: "Haas",
-		primary: "#006F62",
-		glow: "rgba(0, 111, 98, 0.6)",
-		border: "#006F62",
-		accent: "#006F62",
+		primary: "#E10600", // red
+		glow: "rgba(225, 6, 0, 0.6)",
+		border: "#FFFFFF", // white contrast edge
+		accent: "#E10600",
 	},
+
 	audi: {
 		name: "Audi",
-		primary: "#006F62",
-		glow: "rgba(0, 111, 98, 0.6)",
-		border: "#006F62",
-		accent: "#006F62",
+		primary: "#D5001C", // Audi red
+		glow: "rgba(213, 0, 28, 0.6)",
+		border: "#FFFFFF",
+		accent: "#FF2A3D", // neon red highlight
 	},
+
 	alpine: {
 		name: "Alpine",
-		primary: "#006F62",
-		glow: "rgba(0, 111, 98, 0.6)",
-		border: "#006F62",
-		accent: "#006F62",
+		primary: "#0090FF", // Alpine blue
+		glow: "rgba(0, 144, 255, 0.6)",
+		border: "#FF4FD8", // pink edge (Alpine signature contrast)
+		accent: "#00E0FF", // cyan neon highlight
 	},
+
 	cadillac: {
 		name: "Cadillac",
-		primary: "#006F62",
-		glow: "rgba(0, 111, 98, 0.6)",
-		border: "#006F62",
-		accent: "#006F62",
+		primary: "#0A1AFF", // deep electric blue
+		glow: "rgba(10, 26, 255, 0.6)",
+		border: "#C9A227", // gold accent
+		accent: "#FFD700", // neon gold highlight
 	},
 };
