@@ -1,13 +1,13 @@
 const API_URL = "http://localhost:3001";
 import { jwtDecode } from "jwt-decode";
 
-export async function register(email, password, username) {
+export async function register(email, password, username, team) {
 	const res = await fetch(`${API_URL}/auth/register`, {
 		method: "POST",
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({ email, password, username }),
+		body: JSON.stringify({ email, password, username, team }),
 	});
 
 	const data = await res.json();

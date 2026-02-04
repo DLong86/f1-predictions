@@ -1,4 +1,11 @@
 export const teamThemes = {
+	default: {
+		name: "Default",
+		primary: "#E10600",
+		glow: "rgba(225, 6, 0, 0.6)",
+		border: "#E10600",
+		accent: "#E10600",
+	},
 	mercedes: {
 		name: "Mercedes",
 		primary: "#00F5D4", // Petronas green
@@ -52,10 +59,10 @@ export const teamThemes = {
 	},
 	haas: {
 		name: "Haas",
-		primary: "#E10600", // red
+		primary: "#dddddd", // red
 		glow: "rgba(225, 6, 0, 0.6)",
 		border: "#FFFFFF", // white contrast edge
-		accent: "#E10600",
+		accent: "#ffffff",
 	},
 
 	audi: {

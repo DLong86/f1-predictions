@@ -1,11 +1,15 @@
 import { logout, isLoggedIn, getUserFromToken } from "../services/auth";
 import { useNavigate, Link } from "react-router-dom";
 import { useState } from "react";
+import { teamThemes } from "../theme/teams";
 
 export default function Header() {
 	const navigate = useNavigate();
 	const user = getUserFromToken();
 	const [menuOpen, setMenuOpen] = useState(false);
+
+	const team = user?.team || "default";
+	const theme = teamThemes[team] || teamThemes.default;
 
 	const handleLogout = () => {
 		logout();
@@ -14,13 +18,27 @@ export default function Header() {
 	};
 
 	return (
-		<header className="w-full bg-[#222] border-b border-white/10 relative z-50">
+		<header className="w-full bg-[#222]  relative z-50">
 			<div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
 				{/* LEFT */}
 				<Link to="/" className="flex items-center gap-2 group">
-					<div className="w-2 h-8 bg-cyan-400 group-hover:bg-cyan-300 transition-all" />
-					<h1 className="text-xl md:text-2xl font-bold tracking-wide text-white">
-						Race<span className="text-cyan-400">Predictor</span>
+					<div
+						className="w-2 h-8 transition-all"
+						style={{
+							backgroundColor: theme.primary,
+							boxShadow: `0 0 10px ${theme.glow}`,
+						}}
+					/>
+					<h1 className="text-xl md:text-2xl font-bold tracking-wide text-white ">
+						Race{" "}
+						<span
+							style={{
+								color: theme.primary,
+								textShadow: `0 0 8px ${theme.glow}`,
+							}}
+						>
+							Predictor
+						</span>
 					</h1>
 				</Link>
 
@@ -28,19 +46,31 @@ export default function Header() {
 				<nav className="hidden md:flex items-center gap-6 text-sm uppercase tracking-widest">
 					<Link
 						to="/dashboard"
-						className="text-white/70 hover:text-cyan-400 transition"
+						className="text-white/70 transition"
+						onMouseEnter={(e) => (e.target.style.color = theme.primary)}
+						onMouseLeave={(e) =>
+							(e.target.style.color = "rgba(255,255,255,0.7)")
+						}
 					>
 						Dashboard
 					</Link>
 					<Link
 						to="/races"
-						className="text-white/70 hover:text-cyan-400 transition"
+						className="text-white/70 transition"
+						onMouseEnter={(e) => (e.target.style.color = theme.primary)}
+						onMouseLeave={(e) =>
+							(e.target.style.color = "rgba(255,255,255,0.7)")
+						}
 					>
 						Races
 					</Link>
 					<Link
 						to="/my-predictions"
-						className="text-white/70 hover:text-cyan-400 transition"
+						className="text-white/70 transition"
+						onMouseEnter={(e) => (e.target.style.color = theme.primary)}
+						onMouseLeave={(e) =>
+							(e.target.style.color = "rgba(255,255,255,0.7)")
+						}
 					>
 						My Predictions
 					</Link>
@@ -56,7 +86,21 @@ export default function Header() {
 
 							<button
 								onClick={handleLogout}
-								className="px-4 py-2 text-sm border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all rounded"
+								className="px-4 py-2 text-sm transition-all rounded cursor-pointer"
+								style={{
+									border: `1px solid ${theme.primary}`,
+									color: theme.primary,
+								}}
+								onMouseEnter={(e) => {
+									e.target.style.backgroundColor = theme.primary;
+									e.target.style.color = "#000";
+									e.target.style.boxShadow = `0 0 12px ${theme.glow}`;
+								}}
+								onMouseLeave={(e) => {
+									e.target.style.backgroundColor = "transparent";
+									e.target.style.color = theme.primary;
+									e.target.style.boxShadow = "none";
+								}}
 							>
 								Logout
 							</button>
@@ -65,13 +109,30 @@ export default function Header() {
 						<div className="flex items-center gap-3">
 							<Link
 								to="/login"
-								className="text-white/70 hover:text-cyan-400 transition"
+								style={{ color: theme.primary }}
+								className="transition hover:opacity-80"
 							>
 								Login
 							</Link>
+
 							<Link
 								to="/register"
-								className="px-4 py-2 text-sm border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all rounded"
+								style={{
+									borderColor: theme.primary,
+									color: theme.primary,
+									boxShadow: `0 0 12px ${theme.glow}`,
+								}}
+								className="px-4 py-2 text-sm border transition-all duration-300 rounded hover:text-black"
+								onMouseEnter={(e) => {
+									e.target.style.backgroundColor = theme.primary;
+									e.target.style.color = "#000";
+									e.target.style.boxShadow = `0 0 12px ${theme.glow}`;
+								}}
+								onMouseLeave={(e) => {
+									e.target.style.backgroundColor = "transparent";
+									e.target.style.color = theme.primary;
+									e.target.style.boxShadow = "none";
+								}}
 							>
 								Sign up
 							</Link>
@@ -103,21 +164,33 @@ export default function Header() {
 						<Link
 							onClick={() => setMenuOpen(false)}
 							to="/dashboard"
-							className="text-white/80 hover:text-cyan-400"
+							className="text-white/70 transition duration-200"
+							onMouseEnter={(e) => (e.target.style.color = theme.primary)}
+							onMouseLeave={(e) =>
+								(e.target.style.color = "rgba(255,255,255,0.7)")
+							}
 						>
 							Dashboard
 						</Link>
 						<Link
 							onClick={() => setMenuOpen(false)}
 							to="/races"
-							className="text-white/80 hover:text-cyan-400"
+							className="text-white/70 transition duration-200"
+							onMouseEnter={(e) => (e.target.style.color = theme.primary)}
+							onMouseLeave={(e) =>
+								(e.target.style.color = "rgba(255,255,255,0.7)")
+							}
 						>
 							Races
 						</Link>
 						<Link
 							onClick={() => setMenuOpen(false)}
 							to="/my-predictions"
-							className="text-white/80 hover:text-cyan-400"
+							className="text-white/70 transition duration-200"
+							onMouseEnter={(e) => (e.target.style.color = theme.primary)}
+							onMouseLeave={(e) =>
+								(e.target.style.color = "rgba(255,255,255,0.7)")
+							}
 						>
 							My Predictions
 						</Link>
@@ -132,7 +205,21 @@ export default function Header() {
 
 								<button
 									onClick={handleLogout}
-									className="w-full px-4 py-2 text-sm border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all rounded"
+									className="w-full px-4 py-2 text-sm border transition-all duration-300 rounded cursor-pointer"
+									style={{
+										border: `1px solid ${theme.primary}`,
+										color: theme.primary,
+									}}
+									onMouseEnter={(e) => {
+										e.target.style.backgroundColor = theme.primary;
+										e.target.style.color = "#000";
+										e.target.style.boxShadow = `0 0 12px ${theme.glow}`;
+									}}
+									onMouseLeave={(e) => {
+										e.target.style.backgroundColor = "transparent";
+										e.target.style.color = theme.primary;
+										e.target.style.boxShadow = "none";
+									}}
 								>
 									Logout
 								</button>
@@ -142,14 +229,31 @@ export default function Header() {
 								<Link
 									onClick={() => setMenuOpen(false)}
 									to="/login"
-									className="text-white/80 hover:text-cyan-400"
+									style={{ color: theme.primary }}
+									className="transition hover:opacity-80 text-center"
 								>
 									Login
 								</Link>
+
 								<Link
 									onClick={() => setMenuOpen(false)}
 									to="/register"
-									className="px-4 py-2 text-sm border border-cyan-400 text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all rounded text-center"
+									style={{
+										borderColor: theme.primary,
+										color: theme.primary,
+										boxShadow: `0 0 12px ${theme.glow}`,
+									}}
+									className="px-4 py-2 text-sm border transition-all duration-300 rounded text-center hover:text-black"
+									onMouseEnter={(e) => {
+										e.target.style.backgroundColor = theme.primary;
+										e.target.style.color = "#000";
+										e.target.style.boxShadow = `0 0 12px ${theme.glow}`;
+									}}
+									onMouseLeave={(e) => {
+										e.target.style.backgroundColor = "transparent";
+										e.target.style.color = theme.primary;
+										e.target.style.boxShadow = "none";
+									}}
 								>
 									Sign up
 								</Link>
