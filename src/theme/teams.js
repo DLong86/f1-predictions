@@ -1,10 +1,10 @@
 export const teamThemes = {
 	default: {
 		name: "Default",
-		primary: "#E10600",
-		glow: "rgba(225, 6, 0, 0.6)",
-		border: "#E10600",
-		accent: "#E10600",
+		primary: "#0090FF", // Alpine blue
+		glow: "rgba(0, 144, 255, 0.6)",
+		border: "#FF4FD8", // pink edge (Alpine signature contrast)
+		accent: "#00E0FF",
 	},
 	mercedes: {
 		name: "Mercedes",

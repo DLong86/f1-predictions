@@ -17,6 +17,26 @@ export default function Header() {
 		navigate("/");
 	};
 
+	const navHoverEnter = (e) => {
+		e.target.style.color = theme.primary;
+	};
+
+	const navHoverLeave = (e) => {
+		e.target.style.color = "rgba(255,255,255,0.7)";
+	};
+
+	const buttonHoverEnter = (e) => {
+		e.target.style.backgroundColor = theme.primary;
+		e.target.style.color = "#000";
+		e.target.style.boxShadow = `0 0 12px ${theme.glow}`;
+	};
+
+	const buttonHoverLeave = (e) => {
+		e.target.style.backgroundColor = "transparent";
+		e.target.style.color = theme.primary;
+		e.target.style.boxShadow = "none";
+	};
+
 	return (
 		<header className="w-full bg-[#222]  relative z-50">
 			<div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
@@ -46,31 +66,25 @@ export default function Header() {
 				<nav className="hidden md:flex items-center gap-6 text-sm uppercase tracking-widest">
 					<Link
 						to="/dashboard"
-						className="text-white/70 transition"
-						onMouseEnter={(e) => (e.target.style.color = theme.primary)}
-						onMouseLeave={(e) =>
-							(e.target.style.color = "rgba(255,255,255,0.7)")
-						}
+						className="text-white/70 transition duration-200"
+						onMouseEnter={navHoverEnter}
+						onMouseLeave={navHoverLeave}
 					>
 						Dashboard
 					</Link>
 					<Link
 						to="/races"
-						className="text-white/70 transition"
-						onMouseEnter={(e) => (e.target.style.color = theme.primary)}
-						onMouseLeave={(e) =>
-							(e.target.style.color = "rgba(255,255,255,0.7)")
-						}
+						className="text-white/70 transition duration-200"
+						onMouseEnter={navHoverEnter}
+						onMouseLeave={navHoverLeave}
 					>
 						Races
 					</Link>
 					<Link
 						to="/my-predictions"
-						className="text-white/70 transition"
-						onMouseEnter={(e) => (e.target.style.color = theme.primary)}
-						onMouseLeave={(e) =>
-							(e.target.style.color = "rgba(255,255,255,0.7)")
-						}
+						className="text-white/70 transition duration-200"
+						onMouseEnter={navHoverEnter}
+						onMouseLeave={navHoverLeave}
 					>
 						My Predictions
 					</Link>
@@ -91,16 +105,8 @@ export default function Header() {
 									border: `1px solid ${theme.primary}`,
 									color: theme.primary,
 								}}
-								onMouseEnter={(e) => {
-									e.target.style.backgroundColor = theme.primary;
-									e.target.style.color = "#000";
-									e.target.style.boxShadow = `0 0 12px ${theme.glow}`;
-								}}
-								onMouseLeave={(e) => {
-									e.target.style.backgroundColor = "transparent";
-									e.target.style.color = theme.primary;
-									e.target.style.boxShadow = "none";
-								}}
+								onMouseEnter={buttonHoverEnter}
+								onMouseLeave={buttonHoverLeave}
 							>
 								Logout
 							</button>
@@ -123,16 +129,8 @@ export default function Header() {
 									boxShadow: `0 0 12px ${theme.glow}`,
 								}}
 								className="px-4 py-2 text-sm border transition-all duration-300 rounded hover:text-black"
-								onMouseEnter={(e) => {
-									e.target.style.backgroundColor = theme.primary;
-									e.target.style.color = "#000";
-									e.target.style.boxShadow = `0 0 12px ${theme.glow}`;
-								}}
-								onMouseLeave={(e) => {
-									e.target.style.backgroundColor = "transparent";
-									e.target.style.color = theme.primary;
-									e.target.style.boxShadow = "none";
-								}}
+								onMouseEnter={buttonHoverEnter}
+								onMouseLeave={buttonHoverLeave}
 							>
 								Sign up
 							</Link>
@@ -165,7 +163,7 @@ export default function Header() {
 							onClick={() => setMenuOpen(false)}
 							to="/dashboard"
 							className="text-white/70 transition duration-200"
-							onMouseEnter={(e) => (e.target.style.color = theme.primary)}
+							onMouseEnter={navHoverEnter}
 							onMouseLeave={(e) =>
 								(e.target.style.color = "rgba(255,255,255,0.7)")
 							}
@@ -176,10 +174,8 @@ export default function Header() {
 							onClick={() => setMenuOpen(false)}
 							to="/races"
 							className="text-white/70 transition duration-200"
-							onMouseEnter={(e) => (e.target.style.color = theme.primary)}
-							onMouseLeave={(e) =>
-								(e.target.style.color = "rgba(255,255,255,0.7)")
-							}
+							onMouseEnter={navHoverEnter}
+							onMouseLeave={navHoverLeave}
 						>
 							Races
 						</Link>
@@ -188,9 +184,7 @@ export default function Header() {
 							to="/my-predictions"
 							className="text-white/70 transition duration-200"
 							onMouseEnter={(e) => (e.target.style.color = theme.primary)}
-							onMouseLeave={(e) =>
-								(e.target.style.color = "rgba(255,255,255,0.7)")
-							}
+							onMouseLeave={navHoverLeave}
 						>
 							My Predictions
 						</Link>
@@ -210,16 +204,8 @@ export default function Header() {
 										border: `1px solid ${theme.primary}`,
 										color: theme.primary,
 									}}
-									onMouseEnter={(e) => {
-										e.target.style.backgroundColor = theme.primary;
-										e.target.style.color = "#000";
-										e.target.style.boxShadow = `0 0 12px ${theme.glow}`;
-									}}
-									onMouseLeave={(e) => {
-										e.target.style.backgroundColor = "transparent";
-										e.target.style.color = theme.primary;
-										e.target.style.boxShadow = "none";
-									}}
+									onMouseEnter={buttonHoverEnter}
+									onMouseLeave={buttonHoverLeave}
 								>
 									Logout
 								</button>
@@ -244,16 +230,8 @@ export default function Header() {
 										boxShadow: `0 0 12px ${theme.glow}`,
 									}}
 									className="px-4 py-2 text-sm border transition-all duration-300 rounded text-center hover:text-black"
-									onMouseEnter={(e) => {
-										e.target.style.backgroundColor = theme.primary;
-										e.target.style.color = "#000";
-										e.target.style.boxShadow = `0 0 12px ${theme.glow}`;
-									}}
-									onMouseLeave={(e) => {
-										e.target.style.backgroundColor = "transparent";
-										e.target.style.color = theme.primary;
-										e.target.style.boxShadow = "none";
-									}}
+									onMouseEnter={buttonHoverEnter}
+									onMouseLeave={buttonHoverLeave}
 								>
 									Sign up
 								</Link>
