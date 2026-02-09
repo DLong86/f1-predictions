@@ -1,10 +1,17 @@
 import express from "express";
 import cors from "cors";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
+import process from "process";
+
 import { drivers } from "./data/drivers.js";
 import { races2026 } from "./data/races.js";
 import { predictions } from "./data/predictions.js";
 import authRoutes from "./routes/auth.js";
 import { authMiddleware } from "./middleware/auth.js";
+import adminResultsRoutes from "./routes/adminResults.js";
+
+dotenv.config();
 
 const JWT_SECRET = "super_secret_key";
 
@@ -13,6 +20,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use("/auth", authRoutes);
+app.use("/admin", adminResultsRoutes);
 
 app.get("/drivers", (req, res) => {
 	res.json(drivers);
@@ -59,6 +67,20 @@ app.get("/predictions/:raceId", authMiddleware, (req, res) => {
 });
 
 const PORT = 3001;
-app.listen(PORT, () => {
-	console.log(`Server running on http://localhost:${PORT}`);
-});
+
+async function startServer() {
+	try {
+		await mongoose.connect(process.env.MONGO_URI);
+
+		console.log("MongoDB connected");
+
+		app.listen(PORT, () => {
+			console.log(`Server running on http://localhost:${PORT}`);
+		});
+	} catch (err) {
+		console.error("Mongo connection failed:", err);
+		process.exit(1);
+	}
+}
+
+startServer();

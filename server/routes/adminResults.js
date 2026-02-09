@@ -1,8 +1,8 @@
 import express from "express";
 import Result from "../models/Result.js";
-import { fetchRaceResult } from "../services/resultsApiService";
+import { fetchRaceResult } from "../services/resultsApiService.js";
 
-const router = express.Route();
+const router = express.Router();
 
 // ADMIN ONLY!!!! (protectr later)
 router.post("/sync-results/:season/:round", async (req, res) => {
