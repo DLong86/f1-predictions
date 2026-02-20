@@ -7,6 +7,7 @@ import process from "process";
 import { drivers } from "./data/drivers.js";
 import { races2026 } from "./data/races.js";
 import { predictions } from "./data/predictions.js";
+import leaderboardRoutes from "./routes/Leaderboard.js";
 import authRoutes from "./routes/auth.js";
 import { authMiddleware } from "./middleware/auth.js";
 import adminResultsRoutes from "./routes/adminResults.js";
@@ -21,6 +22,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/admin", adminResultsRoutes);
+app.use("/leaderboard", leaderboardRoutes);
 
 app.get("/drivers", (req, res) => {
 	res.json(drivers);

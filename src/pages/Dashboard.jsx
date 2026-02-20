@@ -34,7 +34,10 @@ function Dashboard() {
 						My Predictions
 					</button>
 
-					<button className="bg-gray-200 text-gray-500 py-2 rounded cursor-not-allowed">
+					<button
+						onClick={() => navigate("/leaderboard")}
+						className="bg-gray-200 text-gray-500 py-2 rounded "
+					>
 						Leaderboard (Coming soon)
 					</button>
 

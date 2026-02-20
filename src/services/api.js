@@ -82,3 +82,9 @@ export async function fetchRaces() {
 	if (!res.ok) throw new Error("Failed to fetch race data");
 	return res.json();
 }
+
+export const getLeaderboard = async () => {
+	const response = await fetch(`${API_URL}/leaderboard`);
+	const data = await response.json();
+	return data;
+};
