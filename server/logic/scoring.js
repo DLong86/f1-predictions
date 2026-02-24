@@ -1,5 +1,5 @@
-import { predictions } from "../data/predictions.js";
-import { users } from "../data/users.js";
+import Prediction from "../models/Prediction.js";
+import User from "../models/User.js";
 
 export function scorePrediction(predictionPodium, resultPodium) {
 	let score = 0;
@@ -11,20 +11,29 @@ export function scorePrediction(predictionPodium, resultPodium) {
 	return score;
 }
 
-export function processRaceResult(raceId, resultPodium) {
-	predictions.forEach((prediction) => {
-		if (prediction.raceId === raceId) {
-			const score = scorePrediction(prediction.podium, resultPodium);
+export async function processRaceResult(raceId, resultPositions) {
+	// Extract actual podium from result
+	const resultPodium = [
+		resultPositions[0]?.code,
+		resultPositions[1]?.code,
+		resultPositions[2]?.code,
+	];
 
-			// Save score to prediction
-			prediction.score = score;
+	// 1. Find predictions for this race
+	const racePredictions = await Prediction.find({ raceId });
 
-			// Add score to user
-			const user = users.find((u) => u.id === prediction.userId);
+	for (const prediction of racePredictions) {
+		const predictionPodium = [prediction.p1, prediction.p2, prediction.p3];
 
-			if (user) {
-				user.totalPoints += score;
-			}
-		}
-	});
+		const score = scorePrediction(predictionPodium, resultPodium);
+
+		// 2. Save score to prediction
+		prediction.pointsAwarded = score;
+		await prediction.save();
+
+		// 3. Add user total points
+		await User.findByIdAndUpdate(prediction.userId, {
+			$inc: { totalPoints: score },
+		});
+	}
 }
