@@ -6,14 +6,14 @@ const predictionSchema = new mongoose.Schema({
 		ref: "User",
 		required: true,
 	},
-	year: { type: Number, required: true },
-	round: { type: Number, required: true },
+	raceId: { type: String, required: true },
 
-	p1: { type: String, required: true },
-	p2: { type: String, required: true },
-	p3: { type: String, required: true },
+	positions: {
+		type: [Number],
+		required: true,
+	},
 
-	pointsAwarderd: { type: Number, default: 0 },
+	pointsAwarded: { type: Number, default: 0 },
 });
 
 const Prediction = mongoose.model("Prediction", predictionSchema);
