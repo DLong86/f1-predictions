@@ -53,16 +53,23 @@ export default function Race() {
 	};
 
 	const updatePrediction = (positionIndex, driverId) => {
-		const next = [...prediction];
-		next[positionIndex] = driverId;
-		setPrediction(next);
+		setPrediction((prev) => {
+			const next = [...prev];
+
+			// Find if drivre already selected
+			const existingIndex = next.findIndex((id) => id === driverId);
+
+			// Reemove from previous position
+			if (existingIndex !== -1) {
+				next[existingIndex] = null;
+			}
+
+			// move driver to new position
+			next[positionIndex] = driverId;
+
+			return next;
+		});
 	};
-
-	console.log("prediction:", prediction);
-
-	if (drivers.length === 0) {
-		return <div className="p-6">Loading drivers...</div>;
-	}
 
 	return (
 		<div className="min-h-screen bg-black text-white p-6">
@@ -79,6 +86,7 @@ export default function Race() {
 					position={index + 1}
 					drivers={drivers}
 					selectedDriverId={driverId}
+					prediction={prediction}
 					onChange={(id) => updatePrediction(index, id)}
 				/>
 			))}

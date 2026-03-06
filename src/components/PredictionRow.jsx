@@ -4,6 +4,7 @@ export default function PredictionRow({
 	position,
 	drivers,
 	selectedDriverId,
+	prediction,
 	onChange,
 }) {
 	return (
@@ -13,6 +14,7 @@ export default function PredictionRow({
 			<DriverSelect
 				drivers={drivers}
 				value={selectedDriverId}
+				prediction={prediction}
 				onChange={onChange}
 			/>
 		</div>
