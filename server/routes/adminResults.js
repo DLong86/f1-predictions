@@ -23,6 +23,9 @@ router.post("/sync-results/:season/:round", async (req, res) => {
 			{ upsert: true, new: true }
 		);
 
+		// CHECK ERGAST DRIVER MATCH WITH ID's
+		console.log(saved.positions.slice(0, 5));
+
 		await processRaceResult(raceId, saved.positions);
 
 		res.json({

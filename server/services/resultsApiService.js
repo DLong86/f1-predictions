@@ -30,12 +30,18 @@ export async function fetchRaceResult(season, round) {
 		raceName: race.raceName,
 		circuit: race.Circuit.circuitName,
 		date: race.date,
-		positions: race.Results.map((r) => ({
-			position: Number(r.position),
-			driverId: r.Driver.driverId,
-			code: r.Driver.code,
-			name: `${r.Driver.givenName} ${r.Driver.familyName}`,
-		})),
+		positions: race.Results.map((r) => {
+			const ergastId = r.Driver.driverId;
+
+			const surname = ergastId.split("_").pop();
+
+			return {
+				position: Number(r.position),
+				driverId: surname,
+				code: r.Driver.code,
+				name: `${r.Driver.givenName} ${r.Driver.familyName}`,
+			};
+		}),
 		raw: race,
 	};
 }
