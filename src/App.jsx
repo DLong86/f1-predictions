@@ -8,6 +8,7 @@ import Header from "./components/Header";
 import Dashboard from "./pages/Dashboard";
 import Races from "./pages/Races";
 import ProtectedRoute from "./components/ProtectedRoute";
+import MyPredictions from "./pages/MyPredictions";
 
 function App() {
 	return (
@@ -50,6 +51,14 @@ function App() {
 					element={
 						<ProtectedRoute>
 							<Leaderboard />
+						</ProtectedRoute>
+					}
+				/>
+				<Route
+					path="/my-predictions"
+					element={
+						<ProtectedRoute>
+							<MyPredictions />
 						</ProtectedRoute>
 					}
 				/>

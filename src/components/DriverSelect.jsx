@@ -3,7 +3,7 @@ export default function DriverSelect({ drivers, value, prediction, onChange }) {
 		<select
 			className=""
 			value={value ?? ""}
-			onChange={(e) => onChange(Number(e.target.value))}
+			onChange={(e) => onChange(e.target.value)}
 		>
 			<option value="">Select driver</option>
 

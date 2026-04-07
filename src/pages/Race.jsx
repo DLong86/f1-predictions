@@ -18,7 +18,7 @@ export default function Race() {
 
 	useEffect(() => {
 		fetchDrivers().then((data) => {
-			console.log(data);
+			console.log("DRIVERS:", data);
 			setDrivers(data);
 		});
 
