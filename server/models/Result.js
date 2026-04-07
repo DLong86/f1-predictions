@@ -9,7 +9,7 @@ const resultSchema = new mongoose.Schema({
 	date: Date,
 	positions: [
 		{
-			position: Number,
+			position: String,
 			driverId: String,
 			code: String,
 			name: String,

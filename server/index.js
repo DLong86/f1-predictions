@@ -65,6 +65,10 @@ app.get("/predictions/:raceId", authMiddleware, async (req, res) => {
 			raceId,
 		});
 
+		console.log("User:", userId);
+		console.log("Race:", raceId);
+		console.log("Prediction:", prediction);
+
 		if (!prediction) {
 			return res.status(404).json({ error: "Prediction not found" });
 		}

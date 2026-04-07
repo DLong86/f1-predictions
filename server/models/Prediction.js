@@ -9,7 +9,7 @@ const predictionSchema = new mongoose.Schema({
 	raceId: { type: String, required: true },
 
 	positions: {
-		type: [Number],
+		type: [String],
 		required: true,
 	},
 
