@@ -4,28 +4,28 @@ import User from "../models/User.js";
 export function scorePrediction(predictionPodium, resultPodium) {
 	let score = 0;
 
-	if (predictionPodium[0] === resultPodium[0]) score += 3;
-	if (predictionPodium[1] === resultPodium[0]) score += 2;
-	if (predictionPodium[2] === resultPodium[0]) score += 1;
+	for (let i = 0; i < 10; i++) {
+		if (predictionPodium[i] === resultPodium[i]) {
+			score += 1;
+		}
+	}
 
 	return score;
 }
 
 export async function processRaceResult(raceId, resultPositions) {
 	// Extract actual podium from result
-	const resultPodium = [
-		resultPositions[0]?.code,
-		resultPositions[1]?.code,
-		resultPositions[2]?.code,
-	];
+	const resultTop10 = resultPositions
+		.slice(0, 10)
+		.map((position) => position.code);
 
 	// 1. Find predictions for this race
 	const racePredictions = await Prediction.find({ raceId });
 
 	for (const prediction of racePredictions) {
-		const predictionPodium = [prediction.p1, prediction.p2, prediction.p3];
+		const predictionPositions = prediction.positions;
 
-		const score = scorePrediction(predictionPodium, resultPodium);
+		const score = scorePrediction(predictionPositions, resultTop10);
 
 		// 2. Save score to prediction
 		prediction.pointsAwarded = score;

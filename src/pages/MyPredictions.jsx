@@ -41,14 +41,18 @@ function MyPredictions() {
 		<div className="">
 			<h1>My Predictions</h1>
 
-			<div className="">
-				{prediction?.map((pre, i) => (
-					<li key={i}>{pre} =&gt;</li>
-				))}
+			<div className="flex">
+				<div className="">
+					{prediction?.map((pre, i) => (
+						<li key={i}>{pre} =&gt;</li>
+					))}
+				</div>
 
-				{result.map((res, i) => (
-					<li key={i}>{res}</li>
-				))}
+				<div className="">
+					{result.map((res, i) => (
+						<li key={i}>{res}</li>
+					))}
+				</div>
 			</div>
 
 			{raceResults()}
