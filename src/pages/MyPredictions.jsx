@@ -38,7 +38,7 @@ function MyPredictions() {
 	const raceResults = () => {
 		if (!prediction || !result) return null;
 
-		return prediction.map((driver, index) => {
+		return prediction.slice(0, 10).map((driver, index) => {
 			const isCorrect = driver === result[index]?.driverId;
 
 			return (
@@ -63,7 +63,7 @@ function MyPredictions() {
 				</div>
 
 				<div className="">
-					{result?.map((pos) => (
+					{result?.slice(0, 10).map((pos) => (
 						<li key={pos.position}>{pos.driverId}</li>
 					))}
 				</div>
