@@ -11,6 +11,7 @@ import leaderboardRoutes from "./routes/Leaderboard.js";
 import authRoutes from "./routes/auth.js";
 import { authMiddleware } from "./middleware/auth.js";
 import adminResultsRoutes from "./routes/adminResults.js";
+import resultsRoutes from "./routes/results.js";
 
 dotenv.config();
 
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use("/auth", authRoutes);
 app.use("/admin", adminResultsRoutes);
 app.use("/leaderboard", leaderboardRoutes);
+app.use("/results", resultsRoutes);
 
 app.get("/drivers", (req, res) => {
 	res.json(drivers);

@@ -2,37 +2,51 @@ import { useState, useEffect } from "react";
 
 function MyPredictions() {
 	const [prediction, setPrediction] = useState(null);
-	const result = ["russell", "antonelli", "leclerc"];
+	const [result, setResult] = useState(null);
 
 	useEffect(() => {
-		const fetchPrediction = async () => {
+		const fetchData = async () => {
 			try {
 				const token = localStorage.getItem("token");
-				const res = await fetch("http://localhost:3001/predictions/1", {
-					headers: {
-						Authorization: `Bearer ${token}`,
-					},
-				});
+				// fetch prediction
+				const predictionResult = await fetch(
+					"http://localhost:3001/predictions/1",
+					{
+						headers: {
+							Authorization: `Bearer ${token}`,
+						},
+					}
+				);
 
-				const data = await res.json();
+				const predictionData = await predictionResult.json();
 
-				setPrediction(data.positions);
+				setPrediction(predictionData.positions);
+
+				// fetch real race results
+				const resultRes = await fetch("http://localhost:3001/results/2026-1");
+				const resultData = await resultRes.json();
+
+				setResult(resultData.positions);
 			} catch (error) {
 				console.error(error);
 			}
 		};
 
-		fetchPrediction();
+		fetchData();
 	}, []);
 
 	const raceResults = () => {
-		return prediction?.map((driver, index) => {
-			const isCorrect = driver === result[index];
+		if (!prediction || !result) return null;
+
+		return prediction.map((driver, index) => {
+			const isCorrect = driver === result[index]?.driverId;
 
 			return (
-				<p key={index}>
-					p{index + 1}: {isCorrect ? "✅" : "❌"}
-				</p>
+				<ul key={index}>
+					<li className="">
+						p{index + 1}: {isCorrect ? "✅" : "❌"}
+					</li>
+				</ul>
 			);
 		});
 	};
@@ -49,13 +63,12 @@ function MyPredictions() {
 				</div>
 
 				<div className="">
-					{result.map((res, i) => (
-						<li key={i}>{res}</li>
+					{result?.map((pos) => (
+						<li key={pos.position}>{pos.driverId}</li>
 					))}
 				</div>
+				{raceResults()}
 			</div>
-
-			{raceResults()}
 		</div>
 	);
 }
