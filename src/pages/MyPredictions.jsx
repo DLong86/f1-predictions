@@ -3,6 +3,9 @@ import { useState, useEffect } from "react";
 function MyPredictions() {
 	const [prediction, setPrediction] = useState(null);
 	const [result, setResult] = useState(null);
+	const [points, setPoints] = useState(null);
+
+	console.log("PREDICTION", prediction);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -21,6 +24,7 @@ function MyPredictions() {
 				const predictionData = await predictionResult.json();
 
 				setPrediction(predictionData.positions);
+				setPoints(predictionData.pointsAwarded);
 
 				// fetch real race results
 				const resultRes = await fetch("http://localhost:3001/results/2026-1");
@@ -55,6 +59,7 @@ function MyPredictions() {
 		<div className="">
 			<h1>My Predictions</h1>
 
+			<h2 className="font-bold">Your points: {points}</h2>
 			<div className="flex">
 				<div className="">
 					{prediction?.map((pre, i) => (

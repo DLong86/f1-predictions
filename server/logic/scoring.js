@@ -17,7 +17,7 @@ export async function processRaceResult(raceId, resultPositions) {
 	// Extract actual podium from result
 	const resultTop10 = resultPositions
 		.slice(0, 10)
-		.map((position) => position.code);
+		.map((position) => position.driverId);
 
 	// 1. Find predictions for this race
 	const racePredictions = await Prediction.find({ raceId });
