@@ -39,7 +39,6 @@ export default function Race() {
 
 	const handleSave = async () => {
 		const token = localStorage.getItem("token");
-		console.log("SAVE TOKEN:", token);
 
 		if (!token) {
 			alert("You must be logged in to save predictions");
@@ -50,6 +49,12 @@ export default function Race() {
 			raceId,
 			positions: prediction,
 		});
+
+		const updated = await fetchPrediction(raceId);
+
+		if (updated) {
+			setPrediction(updated.positions);
+		}
 	};
 
 	const updatePrediction = (positionIndex, driverId) => {

@@ -14,24 +14,30 @@ export function scorePrediction(predictionPodium, resultPodium) {
 }
 
 export async function processRaceResult(raceId, resultPositions) {
-	// Extract actual podium from result
+	console.log("raceId received:", raceId, typeof raceId);
+
 	const resultTop10 = resultPositions
 		.slice(0, 10)
 		.map((position) => position.driverId);
 
 	// 1. Find predictions for this race
-	const racePredictions = await Prediction.find({ raceId });
+	const racePredictions = await Prediction.find({
+		raceId: raceId.split("-")[1],
+	});
+
+	console.log("Predictions found:", racePredictions.length);
 
 	for (const prediction of racePredictions) {
 		const predictionPositions = prediction.positions;
 
+		console.log("Prediction:", predictionPositions);
+		console.log("Result:", resultTop10);
+
 		const score = scorePrediction(predictionPositions, resultTop10);
 
-		// 2. Save score to prediction
 		prediction.pointsAwarded = score;
 		await prediction.save();
 
-		// 3. Add user total points
 		await User.findByIdAndUpdate(prediction.userId, {
 			$inc: { totalPoints: score },
 		});

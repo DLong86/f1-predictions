@@ -18,7 +18,7 @@ function MyPredictions() {
 						headers: {
 							Authorization: `Bearer ${token}`,
 						},
-					}
+					},
 				);
 
 				const predictionData = await predictionResult.json();

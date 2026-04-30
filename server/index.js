@@ -12,6 +12,8 @@ import authRoutes from "./routes/auth.js";
 import { authMiddleware } from "./middleware/auth.js";
 import adminResultsRoutes from "./routes/adminResults.js";
 import resultsRoutes from "./routes/results.js";
+import { processRaceResult } from "./logic/scoring.js";
+import Result from "./models/Result.js";
 
 dotenv.config();
 
@@ -45,8 +47,13 @@ app.post("/predictions", authMiddleware, async (req, res) => {
 		const prediction = await Prediction.findOneAndUpdate(
 			{ userId: req.user.userId, raceId },
 			{ positions },
-			{ upsert: true, new: true }
+			{ upsert: true, new: true },
 		);
+
+		const result = await Result.findOne({ raceId });
+		if (result) {
+			await processRaceResult(raceId, result.positions);
+		}
 
 		res.json(prediction);
 
